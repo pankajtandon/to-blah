@@ -1,0 +1,27 @@
+<div>
+    <div class="row">
+        <div class="col-lg-12">
+            <h1 class="page-header">To Do's</h1>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-lg-4">
+            <div class="panel panel-default">
+                <div class="panel-heading">
+                    <i class="fa fa-bell fa-fw"></i> Things I have to do!
+                </div>
+                <div class="panel-body">
+                    <h4>Enter a ToDo to do... toodle-do!: </h4>
+                    <form id="todo-form" ng-submit="addTodo()">
+                        <input id="new-todo" placeholder="What needs to be done?" size="44" ng-model="newTodo" ng-disabled="saving..." autofocus>
+                    </form>
+                    <div class="panel-body">
+                    <a href="#" class="btn btn-default btn-block">Save</a>
+                    <a href="#" class="btn btn-default btn-block">Cancel</a>
+                    </div>
+                    <notifications></notifications>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

@@ -1,0 +1,11 @@
+.tmp
+bower_components
+node_modules
+.idea
+.iml
+.DS_Store
+.idea/**
+app/index.html
+app/main.scss
+
+

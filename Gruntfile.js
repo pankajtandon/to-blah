@@ -33,9 +33,16 @@ module.exports = function (grunt) {
         files: ['bower.json'],
         tasks: ['wiredep']
       },
+      html: {
+            files: ['<%= yeoman.app %>/*.tpl.html'],
+            tasks: ['includeSource', 'wiredep'],
+            options: {
+                livereload: '<%= connect.options.livereload %>'
+            }
+      },        
       js: {
         files: ['<%= yeoman.app %>/scripts/{,*/}*.js'],
-        tasks: ['newer:jshint:all'],
+        tasks: ['includeSource', 'wiredep', 'newer:jshint:all'],
         options: {
           livereload: '<%= connect.options.livereload %>'
         }
@@ -110,6 +117,19 @@ module.exports = function (grunt) {
       }
     },
 
+      // Includes sources into html automatically
+      includeSource: {
+          options: {
+              basePath: 'app'
+          },
+          myTarget: {
+              files: {
+                  'app/index.html': 'app/index.tpl.html',
+                  'app/main.scss':  'app/main.tpl.scss'
+              }
+          }
+      },      
+
     // Make sure code styles are up to par and there are no obvious mistakes
     jshint: {
       options: {
@@ -161,16 +181,63 @@ module.exports = function (grunt) {
     },
 
     // Automatically inject Bower components into the app
-/*    wiredep: {
-      options: {
-        cwd: '<%= yeoman.app %>'
-      },
+    wiredep: {
       app: {
-        src: ['<%= yeoman.app %>/index.html'],
-        ignorePath:  /\.\.\//
+        src:        ['<%= yeoman.app %>/index.html'],
+        ignorePath: /\.\.\//
+      },
+      test: {
+        devDependencies: true,
+        src:             '<%= karma.unit.configFile %>',
+        ignorePath:      /\.\.\//,
+        fileTypes:       {
+          js: {
+            block: /(([\s\t]*)\/{2}\s*?bower:\s*?(\S*))(\n|\r|.)*?(\/{2}\s*endbower)/gi,
+            detect: {
+              js: /'(.*\.js)'/gi
+              
+            },
+            replace: {
+              js: '\'{{filePath}}\','
+            }
+          }
+        }
+      },
+      sass: {
+        src:        ['<%= yeoman.app %>/{,*/}*.{scss,sass}'],
+        ignorePath: /(\.\.\/){1,2}bower_components\//
       }
     },
-*/
+
+    // Compiles Sass to CSS and generates necessary files if requested
+    compass: {
+      options: {
+        sassDir:                 '<%= yeoman.app %>',
+        cssDir:                  '.tmp/styles',
+        generatedImagesDir:      '.tmp/images/generated',
+        imagesDir:               '<%= yeoman.app %>/images',
+        javascriptsDir:          '<%= yeoman.app %>',
+        fontsDir:                '<%= yeoman.app %>/fonts',
+        importPath:              './bower_components',
+        httpImagesPath:          '/images',
+        httpGeneratedImagesPath: '/images/generated',
+        httpFontsPath:           '/fonts',
+        relativeAssets:          false,
+        assetCacheBuster:        false,
+        raw:                     'Sass::Script::Number.precision = 10\n'
+      },
+      dist: {
+        options: {
+          generatedImagesDir: '<%= yeoman.dist %>/images/generated'
+        }
+      },
+      server: {
+        options: {
+          sourcemap: true
+        }
+      }
+    },
+    
     // Renames files for browser caching purposes
     filerev: {
       dist: {
@@ -355,6 +422,40 @@ module.exports = function (grunt) {
       ]
     },
 
+
+    // Complies ngdoc comments and generates it to html
+    ngdocs: {
+      options: {
+        dest:      'docs/generated/',
+        title:     'curaviWebClientApp Angular Docs',
+        html5Mode: false
+      },
+      api: {
+        src:   ['app/{,*/}*.js'],
+        title: 'curaviWebClientApp Angular Documentation'
+      }
+    },
+
+  //protractor runner settings
+  protractor: {
+      options: {
+          configFile: 'test/protractor.conf.js', //protractor config file
+          keepAlive:  true,
+          noColor:    false,
+          args:       {
+              //Arguments passed to the command
+          }
+      },
+      chrome:  {
+          options: {
+              args: {
+                  browser: 'chrome'
+              }
+          }
+      }
+  },
+
+
     // Test settings
     karma: {
       unit: {
@@ -372,6 +473,8 @@ module.exports = function (grunt) {
 
     grunt.task.run([
       'clean:server',
+      'includeSource',
+      'wiredep',
       'concurrent:server',
       'autoprefixer',
       'connect:livereload',

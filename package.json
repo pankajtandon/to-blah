@@ -1,9 +1,9 @@
 {
-  "name": "sb-admin",
+  "name": "toblah",
   "version": "0.0.0",
   "repository": {
     "type": "git",
-    "url": "https://github.com/start-angular/sb-admin-angular"
+    "url": "https://github.com/pankajtandon/to-blah"
   },
   "dependencies": {},
   "devDependencies": {
@@ -20,6 +20,8 @@
     "grunt-contrib-jshint": "^0.10.0",
     "grunt-contrib-uglify": "^0.4.0",
     "grunt-contrib-watch": "^0.6.1",
+    "grunt-include-source": "^0.7.1",
+    "grunt-wiredep": "^2.0.0",
     "grunt-filerev": "^0.2.1",
     "grunt-google-cdn": "^0.4.0",
     "grunt-karma": "^0.10.1",

@@ -1,9 +1,9 @@
 'use strict';
 
-describe('Controller: AboutCtrl', function () {
+describe('Controller: AboutController', function () {
 
   // load the controller's module
-  beforeEach(module('sbAdminApp'));
+  beforeEach(module('toblah'));
 
   var AboutCtrl,
     scope;

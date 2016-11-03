@@ -1,0 +1,28 @@
+<div>
+    <div class="row">
+        <div class="col-lg-4">
+            <div class="panel panel-default">
+                <div class="panel-heading">
+                    <i class="fa fa-bell fa-fw"></i> {{title}}
+                </div>
+                <div class="panel-body">
+                    <form id="toblahform" ng-submit="saveToblah(currtoblah)">
+                        <input placeholder="{{placeholder}}" size="44" ng-model="currtoblah.what"
+                               name="what" autofocus/>
+                        <p style="padding-top: 1em">
+                            <input type="submit" id="submit" value="Submit" />
+                        </p>
+                    </form>
+                    <ul id="toblah-list" class="list-group" >
+                        <span ng-repeat="toblah in toblahList track by $index">
+                                <a href="#/main/{{type}}" class="list-group-item">
+                                    <i class="fa fa-comment fa-fw"></i> {{toblah.what }}
+                                    <button class="pull-right text-muted small" ng-click="deleteToblah(toblah)">x</button>
+                                </a>
+                        </span>
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

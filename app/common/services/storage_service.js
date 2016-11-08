@@ -66,7 +66,7 @@ angular.module('toblah')
 				var deferred = $q.defer();
 
 				var incompleteToblahs = this.toblahs[type].filter(function (toblah) {
-					return !toblah.completed;
+					return !toblah.complete;
 				});
 
 				angular.copy(incompleteToblahs, this.toblahs[type]);

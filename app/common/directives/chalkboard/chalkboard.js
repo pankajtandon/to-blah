@@ -86,5 +86,16 @@ function ToblahController($scope, storageService, appConstants, $log) {
                 });
     };
 
+    vm.clearCompleted = function() {
+        storageService.clearCompleted(vm.type)
+            .then(function (response) {
+                    vm.toblahList = response;
+                    $log.debug('cleared completed toblah');
+                },
+                function(error) {
+                    $log.error('error: ' + error);
+                });
+    };
+
     vm.getToblahs();
 };

@@ -39,6 +39,7 @@ function ToblahController($scope, storageService, appConstants, $log) {
         storageService.get(appConstants.type[vm.type])
             .then(function (response) {
                     vm.toblahList = response;
+
                     $log.debug('Got toblahs');
                 },
                 function(error) {

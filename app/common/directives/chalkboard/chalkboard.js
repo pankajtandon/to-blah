@@ -17,7 +17,9 @@ angular.module('toblah')
                 placeholder: '@',
                 title: '@'
             },
-            controller: 'ToblahController'
+            controller: 'ToblahController',
+            bindToController: true,
+            controllerAs: 'vm'
 		}
 	});
 
@@ -28,13 +30,15 @@ angular
 ToblahController.$inject = ['$scope', 'StorageService', 'APP_CONSTANTS', '$log'];
 
 function ToblahController($scope, storageService, appConstants, $log) {
-    $scope.toblahList = null;
+    var vm = this;
+    
+    vm.toblahList = null;
 
-    $scope.getToblahs = function() {
-        $log.debug('Value of type: ' + $scope.type);
-        storageService.get(appConstants.type[$scope.type])
+    vm.getToblahs = function() {
+        $log.debug('Value of type: ' + vm.type);
+        storageService.get(appConstants.type[vm.type])
             .then(function (response) {
-                    $scope.toblahList = response;
+                    vm.toblahList = response;
                     $log.debug('Got toblahs');
                 },
                 function(error) {
@@ -42,13 +46,13 @@ function ToblahController($scope, storageService, appConstants, $log) {
                 });
     };
 
-    $scope.saveToblah = function(toblah) {
-        toblah.type = $scope.type;
+    vm.saveToblah = function(toblah) {
+        toblah.type = vm.type;
         storageService.insert(toblah)
             .then(function (r1) {
                 storageService.get(toblah.type)
                     .then(function(r2) {
-                        $scope.toblahList = r2;
+                        vm.toblahList = r2;
                     });
                 $log.debug('saved toblahs');
             },
@@ -57,10 +61,10 @@ function ToblahController($scope, storageService, appConstants, $log) {
             });
     };
 
-    $scope.deleteToblah = function(toblah) {
+    vm.deleteToblah = function(toblah) {
         storageService.delete(toblah)
             .then(function (response) {
-                    $scope.toblahList = response;
+                    vm.toblahList = response;
                     $log.debug('deleted toblah');
                 },
                 function(error) {
@@ -68,5 +72,19 @@ function ToblahController($scope, storageService, appConstants, $log) {
                 });
     };
 
-    $scope.getToblahs();
+    vm.setCompleteStatus = function(toblah, index) {
+        storageService.put(toblah, index)
+            .then(function (r1) {
+                    storageService.get(toblah.type)
+                        .then(function(r2) {
+                            vm.toblahList = r2;
+                        });
+                    $log.debug('updated toblah');
+                },
+                function(error) {
+                    $log.error('error: ' + error);
+                });
+    };
+
+    vm.getToblahs();
 };

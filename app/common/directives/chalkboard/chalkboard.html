@@ -12,21 +12,23 @@
                         <p style="padding-top: 1em">
                             <input type="submit" id="submit" value="Submit" />
                         </p>
+
+                        <ul id="toblah-list" class="list-group" >
+                            <span ng-repeat="toblah in vm.toblahList track by $index">
+                                    <span class="list-group-item">
+                                        <input type="checkbox" ng-model="toblah.complete"
+                                               ng-true-value="true" ng-false-value="false"
+                                               ng-click="vm.setCompleteStatus(toblah, $index)" class="strikethrough">
+
+                                            <a href="#/main/{{type}}" >
+                                                <i class="fa fa-arrow-circle-right fa-fw"></i> <span>{{toblah.what}}</span>
+                                                <button class="pull-right text-muted small" ng-click="vm.deleteToblah(toblah)">x</button>
+                                            </a>
+                                        </input>
+                                    </span>
+                            </span>
+                        </ul>
                     </form>
-                    <ul id="toblah-list" class="list-group" >
-                        <span ng-repeat="toblah in vm.toblahList track by $index">
-                                <a href="#/main/{{vm.type}}" class="list-group-item">
-
-                                    <i class="fa fa-arrow-circle-right fa-fw"></i> {{toblah.what }}
-                                    <label><input type="checkbox" ng-model="toblah.complete"
-                                           ng-true-value="true" ng-false-value="false"
-                                                  ng-click="vm.setCompleteStatus(toblah, $index)">
-                                        Complete</label>
-                                    <button class="pull-right text-muted small" ng-click="vm.deleteToblah(toblah)">x</button>
-
-                                </a>
-                        </span>
-                    </ul>
                 </div>
             </div>
         </div>

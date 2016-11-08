@@ -6,29 +6,33 @@
                     <i class="fa fa-bell fa-fw"></i> {{vm.title}}
                 </div>
                 <div class="panel-body">
-                    <form id="toblahform" ng-submit="vm.saveToblah(currtoblah)">
+                    <form id="saveForm" ng-submit="vm.saveToblah(currtoblah)">
                         <input placeholder="{{vm.placeholder}}" size="44" ng-model="currtoblah.what"
                                name="what" autofocus/>
                         <p style="padding-top: 1em">
                             <input type="submit" id="submit" value="Submit" />
                         </p>
-
-                        <ul id="toblah-list" class="list-group" >
-                            <span ng-repeat="toblah in vm.toblahList track by $index">
-                                    <span class="list-group-item">
-                                        <input type="checkbox" ng-model="toblah.complete"
-                                               ng-true-value="true" ng-false-value="false"
-                                               ng-click="vm.setCompleteStatus(toblah, $index)" class="strikethrough">
-
-                                            <a href="#/main/{{type}}" >
-                                                <i class="fa fa-arrow-circle-right fa-fw"></i> <span>{{toblah.what}}</span>
-                                                <button class="pull-right text-muted small" ng-click="vm.deleteToblah(toblah)">x</button>
-                                            </a>
-                                        </input>
-                                    </span>
-                            </span>
-                        </ul>
                     </form>
+                    <form id="clearCompleteForm" ng-submit="vm.clearCompleted()">
+                            <input type="submit" id="clear-completed" value="Clear Completed" />
+                        </p>
+                    </form>
+                    <ul id="toblah-list" class="list-group" >
+                        <span ng-repeat="toblah in vm.toblahList track by $index">
+                                <span class="list-group-item">
+                                    <input type="checkbox" ng-model="toblah.complete"
+                                           ng-true-value="true" ng-false-value="false"
+                                           ng-click="vm.setCompleteStatus(toblah, $index)" class="strikethrough">
+
+                                        <a href="#/main/{{type}}" >
+                                            <i class="fa fa-arrow-circle-right fa-fw"></i> <span>{{toblah.what}}</span>
+                                            <button class="pull-right text-muted small" ng-click="vm.deleteToblah(toblah)">x</button>
+                                        </a>
+                                    </input>
+                                </span>
+                        </span>
+                    </ul>
+
                 </div>
             </div>
         </div>

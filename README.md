@@ -35,4 +35,18 @@ These are:
 - Views are business module specific. There are no module specific controllers in this application, but if there were, there could be a module specific directory that would hold both views and controllers.
 
 
- 
+## To run
+
+`npm install`
+
+`npm install grunt`
+
+`npm install grunt-cli`
+
+followed by
+
+`grunt serve`
+
+Then navigate to:
+
+`http://localhost:9000/#/main/todo`

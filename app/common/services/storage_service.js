@@ -12,12 +12,6 @@ angular.module('toblah')
 				toread: [],
 				toeat: []
 			},
-			
-			//Some real todos!
-			realtodo : [
-				{"type": "todo", "what": "Add tests", "complete": false},
-				{"type": "todo", "what": "Add filter", "complete": false}
-			],
 
             /**
              * Returns an array of toblahs of a specific type.

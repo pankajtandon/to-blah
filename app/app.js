@@ -50,6 +50,21 @@ angular
           url:'/tosee',
           templateUrl:'views/tosee.html'
       })
+  }])
+  .run(['APP_CONSTANTS', function(APP_CONSTANTS) {
+        var toblahs =  {
+                todo: [
+                    {"type": "todo", "what": "Add tests", "complete": false},
+                    {"type": "todo", "what": "Add filter", "complete": false}
+                ],
+                tobuy: [],
+                tolearn: [],
+                tovisit: [],
+                tosee: [],
+                toread: [],
+                toeat: []
+        };
+        localStorage.setItem(APP_CONSTANTS.storage.id, JSON.stringify(toblahs));
   }]);
 
     

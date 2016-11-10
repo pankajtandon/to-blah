@@ -58,7 +58,8 @@ angular
             var toblahs =  {
                 todo: [
                     {"type": "todo", "what": "Add tests", "complete": false},
-                    {"type": "todo", "what": "Add filter", "complete": false}
+                    {"type": "todo", "what": "Add filter", "complete": false},
+                    {"type": "todo", "what": "vote!", "complete": true}
                 ],
                 tobuy: [],
                 tolearn: [],

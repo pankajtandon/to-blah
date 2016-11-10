@@ -1,3 +1,4 @@
+(function() {
 'use strict';
 /**
  * @ngdoc overview
@@ -51,8 +52,10 @@ angular
           templateUrl:'views/tosee.html'
       })
   }])
-  .run(['APP_CONSTANTS', function(APP_CONSTANTS) {
-        var toblahs =  {
+  .run(['APP_CONSTANTS', function(appConstants) {
+        var existing = localStorage.getItem(appConstants.storage.id);
+        if (!existing) {
+            var toblahs =  {
                 todo: [
                     {"type": "todo", "what": "Add tests", "complete": false},
                     {"type": "todo", "what": "Add filter", "complete": false}
@@ -63,8 +66,9 @@ angular
                 tosee: [],
                 toread: [],
                 toeat: []
-        };
-        localStorage.setItem(APP_CONSTANTS.storage.id, JSON.stringify(toblahs));
+            };
+            localStorage.setItem(appConstants.storage.id, JSON.stringify(toblahs));
+        }
   }]);
-
+})();
     
